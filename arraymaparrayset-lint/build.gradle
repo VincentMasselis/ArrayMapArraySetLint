@@ -1,0 +1,35 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven-publish'
+
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7
+
+// Inspired by https://github.com/vanniktech/lint-rules
+dependencies {
+    compileOnly deps.lint.api
+    compileOnly deps.kotlin.stdlib
+
+    testImplementation deps.lint.core
+    testImplementation deps.lint.tests
+}
+
+jar {
+    manifest {
+        attributes('Lint-Registry-v2': 'com.vincentmasselis.arraymaparrayset.IssueRegistry')
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+ext {
+    deploy_packaging = 'jar'
+    deploy_artifactId = 'arraymaparrayset-lint'
+}
+
+apply from: '../deploy.gradle'

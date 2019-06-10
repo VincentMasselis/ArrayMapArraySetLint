@@ -1,0 +1,69 @@
+// Copied from https://notes.devlabs.bg/beginners-guide-for-publishing-a-kotlin-library-to-jcenter-41272bfc214
+
+// In order to work, this gradle file need some variable to be set:
+// - deploy_name: The name of the bintray repository like 'rx-bluetooth-kotlin' or 'rx-ui-kotlin'
+// - deploy_packaging: The type of output file like 'aar' or 'jar'
+// - deploy_groupId: The groupId of the dependency like 'com.vincentmasselis.rxbluetoothkotlin'
+// - deploy_artifactId: The artifactId of the dependecy like 'rxbluetoothkotlin-core'
+// - deploy_version: The current version of your library like '1.0.0' or '1.0-M1'
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+// More info here: https://github.com/bintray/gradle-bintray-plugin#buildgradle
+bintray {
+    user = 'vincentmasselis'
+    key = "$System.env.bintray_key"
+    configurations = ['archives']
+    publish = true //[Default: false] Whether version should be auto published after an upload
+    override = false //[Default: false] Whether to override version artifacts already published
+    // Package configuration. The plugin will use the repo and name properties to check if the
+    // package already exists. In that case, there's no need to configure the other package
+    // properties (like userOrg, desc, etc).
+    pkg {
+        repo = "maven"
+        name = deploy_name
+        version {
+            name = deploy_version
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging deploy_packaging
+            groupId deploy_groupId
+            artifactId deploy_artifactId
+            version deploy_version
+        }
+    }
+}
+
+//just copy paste the lines below
+if (project.hasProperty("kotlin") && project.hasProperty("android")) { //Kotlin libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc, dependsOn: dokka) {
+
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+    // options.encoding = 'UTF-8'
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
