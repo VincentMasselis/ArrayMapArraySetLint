@@ -18,6 +18,9 @@ android {
 dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
+    // Should be replaced by `lintChecks project(':arraymaparrayset-lint')` but a bug in the Android plugin hides the
+    // warning from the editor (the lint task works well). The only solution actually is to call the task
+    // ":arraymaparrayset-lint:install" and use the `mavenLocal()` repository instead of the module dependency.
     lintChecks 'com.vincentmasselis.arraymaparrayset:arraymaparrayset-lint:1.0.0'
     implementation 'com.vincentmasselis.arraymaparrayset:arraymaparrayset-extensions:1.0.0'
 }
