@@ -1,5 +1,5 @@
 ## Introduction
-Lint rule to replace Kotlin's defaults mutable Map and Set implementations by the _lightweight_ `ArrayMap` and `ArraySet` implementations. This library works with Android Studio to create a inspection directly into the editor and will suggest you to replace while you you are writting your code.
+Lint rule to replace Kotlin's defaults `MutableMap` and `MutableSet` implementations by the _lightweight_ `ArrayMap` and `ArraySet` implementations. This library works with Android Studio to create a inspection directly into the editor and will suggest you to replace while you you are writting your code.
 
 <img src="https://github.com/VincentMasselis/ArrayMapArraySetLint/raw/master/assets/pictures/warning.png" width="400">
 <img src="https://github.com/VincentMasselis/ArrayMapArraySetLint/raw/master/assets/pictures/description.png" width="400">
