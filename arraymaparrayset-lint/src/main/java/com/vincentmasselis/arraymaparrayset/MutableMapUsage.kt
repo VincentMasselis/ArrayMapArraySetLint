@@ -27,7 +27,7 @@ class MutableMapUsage : Detector(), Detector.UastScanner {
                     ISSUE_MUTABLE_MAP_CALL,
                     node,
                     context.getNameLocation(node),
-                    "Update using an arrayMapOf() instead of a mutableMapOf()",
+                    "Replace by arrayMapOf() instead of a mutableMapOf()",
                     LintFix.create().replace().text("mutableMapOf").with("arrayMapOf").autoFix().build()
                 )
             "toMutableMap" -> context
@@ -35,10 +35,9 @@ class MutableMapUsage : Detector(), Detector.UastScanner {
                     ISSUE_MUTABLE_MAP_CALL,
                     node,
                     context.getNameLocation(node),
-                    "Update using an toArrayMap() instead of a mutableMapOf()",
+                    "Replace by toArrayMap() instead of a toMutableMap()",
                     LintFix.create().replace().text("toMutableMap").with("toArrayMap").autoFix().build()
                 )
-
         }
     }
 }

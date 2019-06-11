@@ -27,7 +27,7 @@ class MutableSetUsage : Detector(), Detector.UastScanner {
                     ISSUE_MUTABLE_SET_CALL,
                     node,
                     context.getNameLocation(node),
-                    "Update using an arraySetOf() instead of a mutableSetOf()",
+                    "Replace by arraySetOf() instead of a mutableSetOf()",
                     LintFix.create().replace().text("mutableSetOf").with("arraySetOf").autoFix().build()
                 )
             "toMutableSet" -> context
@@ -35,7 +35,7 @@ class MutableSetUsage : Detector(), Detector.UastScanner {
                     ISSUE_MUTABLE_SET_CALL,
                     node,
                     context.getNameLocation(node),
-                    "Update using an toArraySet() instead of a toMutableSet()",
+                    "Replace by toArraySet() instead of a toMutableSet()",
                     LintFix.create().replace().text("toMutableSet").with("toArraySet").autoFix().build()
                 )
 
