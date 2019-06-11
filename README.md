@@ -13,6 +13,6 @@ implementation 'com.vincentmasselis.arraymaparrayset:arraymaparrayset-extensions
 ```
 
 ## Ressources
-There is a video from Android Developpers explaining why and when you should use `ArrayMap`:
+There is a video from Android Developpers explains why and when you should use `ArrayMap`:
 
 [![Youtube Video](https://img.youtube.com/vi/ORgucLTtTDI/0.jpg)](https://www.youtube.com/watch?v=ORgucLTtTDI)
